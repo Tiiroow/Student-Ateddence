@@ -24,6 +24,7 @@ const Login = () => {
           <select value={userType} onChange={(e) => setUserType(e.target.value)} className="w-full p-2 border border-gray-300 rounded mt-1">
             <option value="Teacher">Teacher</option>
             <option value="Student">Student</option>
+            <option value="Admin">Admin</option>
           </select>
         </div>
         <div className="mb-4">
@@ -51,4 +52,3 @@ const Login = () => {
 };
 
 export default Login;
-

@@ -1,4 +1,3 @@
-// src/components/Dashboard.js
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -7,6 +6,7 @@ const Dashboard = () => {
   const { userType } = location.state || { userType: 'Teacher' };
   const navigate = useNavigate();
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const [showRegisterButtons, setShowRegisterButtons] = useState(false);
 
   const handleLogout = () => {
     setShowLogoutConfirm(true);
@@ -35,6 +35,24 @@ const Dashboard = () => {
               <button className="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">Class B</button>
               <button className="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">Class C</button>
               <button className="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">Class D</button>
+              <div className="border-t border-gray-700 my-4"></div>
+            </>
+          )}
+          {userType === 'Admin' && (
+            <>
+              <button className="block w-full text-left py-2 px-4 rounded hover:bg-gray-700">Students</button>
+              <button
+                className="block w-full text-left py-2 px-4 rounded hover:bg-gray-700"
+                onClick={() => setShowRegisterButtons(!showRegisterButtons)}
+              >
+                Register
+              </button>
+              {showRegisterButtons && (
+                <>
+                  <button className="block w-full text-left py-2 px-4 rounded hover:bg-gray-700 ml-4 mb-2">Add Teacher</button>
+                  <button className="block w-full text-left py-2 px-4 rounded hover:bg-gray-700 ml-4">Add Student</button>
+                </>
+              )}
               <div className="border-t border-gray-700 my-4"></div>
             </>
           )}
@@ -90,38 +108,50 @@ const Dashboard = () => {
                   </thead>
                   <tbody>
                     <tr>
-                      <td className="py-2 px-4 border-b border-gray-200">1</td>
-                      <td className="py-2 px-4 border-b border-gray-200">John Doe</td>
-                      <td className="py-2 px-4 border-b border-gray-200">10A</td>
-                      <td className="py-2 px-4 border-b border-gray-200">Present</td>
+                      <td className="py-2 px-4 border-b">001</td>
+                      <td className="py-2 px-4 border-b">John Smith</td>
+                      <td className="py-2 px-4 border-b">Class A</td>
+                      <td className="py-2 px-4 border-b">Present</td>
                     </tr>
                     <tr>
-                      <td className="py-2 px-4 border-b border-gray-200">2</td>
-                      <td className="py-2 px-4 border-b border-gray-200">Jane Smith</td>
-                      <td className="py-2 px-4 border-b border-gray-200">10A</td>
-                      <td className="py-2 px-4 border-b border-gray-200">Absent</td>
+                      <td className="py-2 px-4 border-b">002</td>
+                      <td className="py-2 px-4 border-b">Jane Doe</td>
+                      <td className="py-2 px-4 border-b">Class B</td>
+                      <td className="py-2 px-4 border-b">Absent</td>
                     </tr>
-                    {/* Add more rows as needed */}
+                    <tr>
+                      <td className="py-2 px-4 border-b">003</td>
+                      <td className="py-2 px-4 border-b">Mark Johnson</td>
+                      <td className="py-2 px-4 border-b">Class C</td>
+                      <td className="py-2 px-4 border-b">Present</td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
-
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                <div className="bg-white p-4 rounded-lg shadow-lg">
-                  <h3 className="text-2xl font-semibold mb-4">Attendance by Class</h3>
-                  <div className="w-full h-64 bg-gray-200 rounded-lg"> {/* Replace with actual chart */}</div>
-                </div>
-                <div className="bg-white p-4 rounded-lg shadow-lg">
-                  <h3 className="text-2xl font-semibold mb-4">Monthly Attendance</h3>
-                  <div className="w-full h-64 bg-gray-200 rounded-lg"> {/* Replace with actual chart */}</div>
-                </div>
-              </div>
             </>
           ) : (
-            <div className="bg-white p-4 rounded-lg shadow-lg">
-              <h3 className="text-2xl font-semibold mb-4">Profile</h3>
-              <p>Profile details for the student.</p>
-            </div>
+            <>
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+                <div className="bg-blue-500 text-white p-4 rounded-lg shadow">
+                  <h3 className="text-xl font-semibold">Total Teachers</h3>
+                  <p className="mt-2 text-2xl">100</p>
+                </div>
+                <div className="bg-green-500 text-white p-4 rounded-lg shadow">
+                  <h3 className="text-xl font-semibold">Total Students</h3>
+                  <p className="mt-2 text-2xl">1500</p>
+                </div>
+                <div className="bg-red-500 text-white p-4 rounded-lg shadow">
+                  <h3 className="text-xl font-semibold">Classes</h3>
+                  <p className="mt-2 text-2xl">30</p>
+                </div>
+              </div>
+
+              <div className="bg-white p-4 rounded-lg shadow-lg mb-4">
+                <h3 className="text-2xl font-semibold mb-4">Management Overview</h3>
+                <p>Here you can manage students and teachers.</p>
+                {/* Add more management functionalities here */}
+              </div>
+            </>
           )}
         </div>
       </div>
