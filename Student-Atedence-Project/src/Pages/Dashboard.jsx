@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import StudentRegister from './StudentRegister';
 
 const Dashboard = () => {
   const location = useLocation();
@@ -7,6 +8,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const [showRegisterButtons, setShowRegisterButtons] = useState(false);
+  const [showStudentRegister, setShowStudentRegister] = useState(false);
 
   const handleLogout = () => {
     setShowLogoutConfirm(true);
@@ -50,7 +52,7 @@ const Dashboard = () => {
               {showRegisterButtons && (
                 <>
                   <button className="block w-full text-left py-2 px-4 rounded hover:bg-gray-700 ml-4 mb-2">Add Teacher</button>
-                  <button className="block w-full text-left py-2 px-4 rounded hover:bg-gray-700 ml-4">Add Student</button>
+                  <button className="block w-full text-left py-2 px-4 rounded hover:bg-gray-700 ml-4" onClick={() => setShowStudentRegister(true)}>Add Student</button>
                 </>
               )}
               <div className="border-t border-gray-700 my-4"></div>
@@ -76,81 +78,87 @@ const Dashboard = () => {
         )}
 
         <div className="bg-white p-4 rounded-lg shadow-lg">
-          <h2 className="text-3xl font-bold mb-4">Student Attendance Dashboard</h2>
-          
-          {userType === 'Teacher' ? (
-            <>
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
-                <div className="bg-blue-500 text-white p-4 rounded-lg shadow">
-                  <h3 className="text-xl font-semibold">Total Students</h3>
-                  <p className="mt-2 text-2xl">500</p>
-                </div>
-                <div className="bg-green-500 text-white p-4 rounded-lg shadow">
-                  <h3 className="text-xl font-semibold">Present Today</h3>
-                  <p className="mt-2 text-2xl">450</p>
-                </div>
-                <div className="bg-red-500 text-white p-4 rounded-lg shadow">
-                  <h3 className="text-xl font-semibold">Absent Today</h3>
-                  <p className="mt-2 text-2xl">50</p>
-                </div>
-              </div>
-
-              <div className="bg-white p-4 rounded-lg shadow-lg mb-4">
-                <h3 className="text-2xl font-semibold mb-4">Attendance Records</h3>
-                <table className="min-w-full bg-white">
-                  <thead>
-                    <tr>
-                      <th className="py-2 px-4 border-b-2 border-gray-200">Student ID</th>
-                      <th className="py-2 px-4 border-b-2 border-gray-200">Name</th>
-                      <th className="py-2 px-4 border-b-2 border-gray-200">Class</th>
-                      <th className="py-2 px-4 border-b-2 border-gray-200">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td className="py-2 px-4 border-b">001</td>
-                      <td className="py-2 px-4 border-b">John Smith</td>
-                      <td className="py-2 px-4 border-b">Class A</td>
-                      <td className="py-2 px-4 border-b">Present</td>
-                    </tr>
-                    <tr>
-                      <td className="py-2 px-4 border-b">002</td>
-                      <td className="py-2 px-4 border-b">Jane Doe</td>
-                      <td className="py-2 px-4 border-b">Class B</td>
-                      <td className="py-2 px-4 border-b">Absent</td>
-                    </tr>
-                    <tr>
-                      <td className="py-2 px-4 border-b">003</td>
-                      <td className="py-2 px-4 border-b">Mark Johnson</td>
-                      <td className="py-2 px-4 border-b">Class C</td>
-                      <td className="py-2 px-4 border-b">Present</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </>
+          {showStudentRegister ? (
+            <StudentRegister onSubmit={() => setShowStudentRegister(false)} />
           ) : (
             <>
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
-                <div className="bg-blue-500 text-white p-4 rounded-lg shadow">
-                  <h3 className="text-xl font-semibold">Total Teachers</h3>
-                  <p className="mt-2 text-2xl">100</p>
-                </div>
-                <div className="bg-green-500 text-white p-4 rounded-lg shadow">
-                  <h3 className="text-xl font-semibold">Total Students</h3>
-                  <p className="mt-2 text-2xl">1500</p>
-                </div>
-                <div className="bg-red-500 text-white p-4 rounded-lg shadow">
-                  <h3 className="text-xl font-semibold">Classes</h3>
-                  <p className="mt-2 text-2xl">30</p>
-                </div>
-              </div>
+              <h2 className="text-3xl font-bold mb-4">Student Attendance Dashboard</h2>
 
-              <div className="bg-white p-4 rounded-lg shadow-lg mb-4">
-                <h3 className="text-2xl font-semibold mb-4">Management Overview</h3>
-                <p>Here you can manage students and teachers.</p>
-                {/* Add more management functionalities here */}
-              </div>
+              {userType === 'Teacher' ? (
+                <>
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+                    <div className="bg-blue-500 text-white p-4 rounded-lg shadow">
+                      <h3 className="text-xl font-semibold">Total Students</h3>
+                      <p className="mt-2 text-2xl">500</p>
+                    </div>
+                    <div className="bg-green-500 text-white p-4 rounded-lg shadow">
+                      <h3 className="text-xl font-semibold">Present Today</h3>
+                      <p className="mt-2 text-2xl">450</p>
+                    </div>
+                    <div className="bg-red-500 text-white p-4 rounded-lg shadow">
+                      <h3 className="text-xl font-semibold">Absent Today</h3>
+                      <p className="mt-2 text-2xl">50</p>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-4 rounded-lg shadow-lg mb-4">
+                    <h3 className="text-2xl font-semibold mb-4">Attendance Records</h3>
+                    <table className="min-w-full bg-white">
+                      <thead>
+                        <tr>
+                          <th className="py-2 px-4 border-b-2 border-gray-200">Student ID</th>
+                          <th className="py-2 px-4 border-b-2 border-gray-200">Name</th>
+                          <th className="py-2 px-4 border-b-2 border-gray-200">Class</th>
+                          <th className="py-2 px-4 border-b-2 border-gray-200">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td className="py-2 px-4 border-b">001</td>
+                          <td className="py-2 px-4 border-b">John Smith</td>
+                          <td className="py-2 px-4 border-b">Class A</td>
+                          <td className="py-2 px-4 border-b">Present</td>
+                        </tr>
+                        <tr>
+                          <td className="py-2 px-4 border-b">002</td>
+                          <td className="py-2 px-4 border-b">Jane Doe</td>
+                          <td className="py-2 px-4 border-b">Class B</td>
+                          <td className="py-2 px-4 border-b">Absent</td>
+                        </tr>
+                        <tr>
+                          <td className="py-2 px-4 border-b">003</td>
+                          <td className="py-2 px-4 border-b">Mark Johnson</td>
+                          <td className="py-2 px-4 border-b">Class C</td>
+                          <td className="py-2 px-4 border-b">Present</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+                    <div className="bg-blue-500 text-white p-4 rounded-lg shadow">
+                      <h3 className="text-xl font-semibold">Total Teachers</h3>
+                      <p className="mt-2 text-2xl">100</p>
+                    </div>
+                    <div className="bg-green-500 text-white p-4 rounded-lg shadow">
+                      <h3 className="text-xl font-semibold">Total Students</h3>
+                      <p className="mt-2 text-2xl">1500</p>
+                    </div>
+                    <div className="bg-red-500 text-white p-4 rounded-lg shadow">
+                      <h3 className="text-xl font-semibold">Classes</h3>
+                      <p className="mt-2 text-2xl">30</p>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-4 rounded-lg shadow-lg mb-4">
+                    <h3 className="text-2xl font-semibold mb-4">Management Overview</h3>
+                    <p>Here you can manage students and teachers.</p>
+                    {/* Add more management functionalities here */}
+                  </div>
+                </>
+              )}
             </>
           )}
         </div>
